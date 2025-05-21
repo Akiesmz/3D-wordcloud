@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D词云展示</title>
+    <style type="text/css" media="screen">
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #121212;
+            color: #fff;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+        }
+        #wrap {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            perspective: 1000px;
+        }
+        #wrap .tag {
+            display: inline-block;
+            position: absolute;
+            height: 50px;
+            line-height: 50px;
+            text-decoration: none;
+            transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+            cursor: pointer;
+            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+        }
+        #wrap .tag:hover {
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+            transform: scale(1.1) !important;
+            z-index: 100;
+        }
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .controls button {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .controls button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap"></div>
+    <div class="controls">
+        <button id="pauseBtn">暂停/继续</button>
+        <button id="speedUpBtn">加速</button>
+        <button id="slowDownBtn">减速</button>
+        <button id="resetBtn">重置</button>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
+    <script src="./index.js"></script>
+</body>
+</html>
