@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D词云展示</title>
+    <style type="text/css" media="screen">
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #121212;
+            color: #fff;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+        }
+        #wrap {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;  /* 使用视口宽度，适配不同屏幕 */
+            height: 80vh; /* 使用视口高度 */
+            min-width: 300px; /* 最小宽度限制 */
+            min-height: 300px; /* 最小高度限制 */
+            perspective: 2000px;
+        }
+
+        /* 在小屏幕上调整词云容器大小 */
+        @media screen and (max-width: 768px) {
+            #wrap {
+                width: 90vw;  /* 在小屏幕上占据更多空间 */
+                height: 90vh;
+            }
+        }
+
+        /* 在超小屏幕上进一步调整 */
+        @media screen and (max-width: 480px) {
+            #wrap {
+                width: 95vw;
+                height: 95vh;
+            }
+        }
+        #wrap .tag {
+            display: inline-block;
+            position: absolute;
+            height: 50px;
+            line-height: 50px;
+            text-decoration: none;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            cursor: pointer;
+            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+            transform-style: preserve-3d;
+            user-select: none;
+        }
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap; /* 允许按钮在小屏幕上换行 */
+            justify-content: center;
+            max-width: 90vw; /* 控制最大宽度 */
+        }
+        .controls button {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+            min-width: 80px; /* 确保按钮有最小宽度 */
+        }
+        .controls button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* 在小屏幕上调整控制按钮 */
+        @media screen and (max-width: 480px) {
+            .controls {
+                bottom: 10px;
+                gap: 5px;
+            }
+            .controls button {
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+        }
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap"></div>
+    <div class="controls">
+        <button id="pauseBtn">暂停</button>
+        <button id="resetBtn">重置</button>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
+    <script src="./index.js"></script>
+</body>
+</html>
